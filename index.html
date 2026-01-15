@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Як прибрати набряки та зморшки за 10 хвилин на день</title>
+    <title>Антиботокс: Як повернути молодість за 20 хвилин</title>
     
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,14 +46,9 @@
         /* Эффекты */
         .video-glow { box-shadow: 0 0 40px rgba(217, 70, 239, 0.15); }
 
-        /* Таймер и переключение экранов */
+        /* Утилиты */
         .hidden-element { display: none !important; }
         
-        .visible-by-timer {
-            display: block;
-            animation: fadeIn 1s forwards;
-        }
-
         .mobile-fixed-btn {
             position: fixed;
             bottom: 20px;
@@ -71,7 +66,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 20;
-            pointer-events: none; /* Клики проходят сквозь обертку */
+            pointer-events: none;
         }
         
         .play-btn-pulse {
@@ -82,6 +77,23 @@
             0% { box-shadow: 0 0 0 0 rgba(217, 70, 239, 0.7); }
             70% { box-shadow: 0 0 0 20px rgba(217, 70, 239, 0); }
             100% { box-shadow: 0 0 0 0 rgba(217, 70, 239, 0); }
+        }
+
+        /* Список галочек */
+        .check-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            color: #d4d4d8; /* zinc-300 */
+        }
+        .check-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #d946ef; /* brand color */
         }
     </style>
     
@@ -124,21 +136,16 @@
             <div class="w-full relative group fade-in-up" style="animation-delay: 0.2s;">
                 <div class="absolute -inset-1 bg-gradient-to-r from-brand-dark to-brand rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                 
-                <!-- Контейнер плеера -->
                 <div id="video-container" onclick="loadVideo()" class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl video-glow border border-zinc-800 cursor-pointer group">
-                    
-                    <!-- 1. Обложка (Показывается до клика) -->
-                    <!-- Подтягиваем превью прямо с YouTube -->
+                    <!-- Обложка -->
                     <img id="video-thumbnail" src="https://img.youtube.com/vi/dTPuMrYxiCA/maxresdefault.jpg" alt="Video Thumbnail" class="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-300">
-                    
-                    <!-- 2. Кнопка Play -->
+                    <!-- Кнопка Play -->
                     <div id="play-btn" class="play-button-wrapper">
                         <div class="bg-brand text-white w-20 h-20 rounded-full flex items-center justify-center shadow-lg play-btn-pulse transition-transform transform group-hover:scale-110">
                             <i class="fa-solid fa-play text-3xl ml-2"></i>
                         </div>
                     </div>
-
-                    <!-- 3. Место для Iframe (Появится после клика) -->
+                    <!-- Место для Iframe -->
                     <div id="iframe-wrapper" class="w-full h-full absolute inset-0 hidden-element"></div>
                 </div>
                 
@@ -147,18 +154,47 @@
                 </p>
             </div>
 
-            <!-- Кнопка (Таймер) -->
-            <div id="timer-section" class="hidden-element w-full flex flex-col items-center mt-10">
-                <button onclick="scrollToForm()" class="hidden md:block bg-brand hover:bg-brand-light text-white text-xl font-bold py-4 px-12 rounded-full shadow-[0_0_20px_rgba(217,70,239,0.5)] transform hover:scale-105 transition-all duration-300 animate-pulse">
-                    Заповнити анкету <i class="fa-solid fa-arrow-down ml-2"></i>
-                </button>
+            <!-- СЕКЦИЯ CTA (Видна сразу, animation-delay делает красивый выход после видео) -->
+            <div id="cta-section" class="w-full mt-10 space-y-8 fade-in-up" style="animation-delay: 0.4s;">
+                
+                <!-- ТЕКСТОВЫЙ БЛОК -->
+                <div class="bg-zinc-900/80 border border-brand/30 rounded-2xl p-6 md:p-8 w-full backdrop-blur-sm shadow-xl">
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6 text-center leading-snug">
+                        Прямо зараз ти можеш отримати <span class="text-brand">безкоштовну консультацію</span> по природньому омолодженню та дізнатися, як повернути обличчю свіжість.
+                    </h3>
+                    
+                    <p class="text-zinc-400 font-semibold mb-4 uppercase tracking-wider text-sm">На консультації ми:</p>
+                    
+                    <ul class="check-list text-base md:text-lg space-y-3">
+                        <li>
+                            <strong class="text-white">Розберемо вашу ситуацію:</strong> проаналізуємо набряки, зморшки, стан овалу обличчя та визначимо причини змін.
+                        </li>
+                        <li>
+                            <strong class="text-white">Пояснимо методику:</strong> як, приділяючи всього 20 хвилин на день, отримати результат кращий, ніж після уколів краси.
+                        </li>
+                        <li>
+                            <strong class="text-white">Покажемо реальні приклади:</strong> результати дівчат зі схожими запитами, які вже пройшли курс.
+                        </li>
+                        <li>
+                            <strong class="text-white">Складемо план:</strong> ви отримаєте чітке розуміння, як прийти до пружної шкіри та чіткого овалу вже за 3-4 тижні.
+                        </li>
+                    </ul>
+                </div>
 
+                <!-- Кнопки -->
+                <div class="flex justify-center w-full">
+                    <button onclick="scrollToForm()" class="hidden md:block bg-brand hover:bg-brand-light text-white text-xl font-bold py-4 px-12 rounded-full shadow-[0_0_20px_rgba(217,70,239,0.5)] transform hover:scale-105 transition-all duration-300 animate-pulse">
+                        Заповнити анкету <i class="fa-solid fa-arrow-down ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- Мобильная фиксированная кнопка -->
                 <button onclick="scrollToForm()" class="md:hidden mobile-fixed-btn bg-brand hover:bg-brand-light text-white text-lg font-bold py-4 rounded-xl shadow-2xl border border-brand-light/30 animate-pulse flex justify-center items-center">
                     Заповнити анкету <i class="fa-solid fa-file-pen ml-2"></i>
                 </button>
                 
-                <p class="mt-4 text-zinc-400 text-sm md:block hidden">
-                    Натисніть кнопку вище, щоб отримати консультацію
+                <p class="text-zinc-400 text-sm text-center md:block hidden">
+                    Місця на консультацію обмежені
                 </p>
             </div>
         </main>
@@ -167,7 +203,7 @@
         <section id="form-section" class="w-full bg-zinc-900 border-t border-zinc-800 mt-12 py-16">
             <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center justify-center">
                 
-                <!-- Фото эксперта (image_5.jpg) -->
+                <!-- Фото эксперта -->
                 <div class="hidden md:block w-1/3 relative fade-in-up">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-zinc-700 h-[500px]">
                         <img src="image_5.jpg" alt="Expert" class="w-full h-full object-cover">
@@ -236,7 +272,6 @@
     <div id="thank-you-screen" class="hidden-element relative z-20 w-full min-h-screen flex items-center justify-center p-4">
         <div class="max-w-md w-full bg-zinc-900/90 backdrop-blur-md border border-brand/30 rounded-3xl p-8 text-center shadow-[0_0_50px_rgba(217,70,239,0.2)] fade-in">
             
-            <!-- Аватарка эксперта (image_1.jpg) -->
             <div class="w-24 h-24 mx-auto mb-6 rounded-full p-1 bg-gradient-to-tr from-brand to-brand-dark shadow-xl">
                 <img src="image_1.jpg" alt="Svitlana Tape" class="w-full h-full rounded-full object-cover border-2 border-zinc-900">
             </div>
@@ -254,7 +289,7 @@
                 </p>
             </div>
 
-            <!-- ВСТАВЬ ССЫЛКУ НИЖЕ -->
+            <!-- ССЫЛКА НА ТГ -->
             <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="block w-full bg-[#229ED9] hover:bg-[#1a8bc4] text-white text-lg font-bold py-4 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300">
                 <i class="fa-brands fa-telegram mr-2"></i> Перейти в канал
             </a>
@@ -266,22 +301,16 @@
     </div>
 
     <script>
-        // === НАСТРОЙКИ ===
-        const BUTTON_DELAY_MS = 420000; // 7 минут
-
-        // Логика запуска видео при клике (Решает ошибку 153 и проблему со звуком)
+        // Логика запуска видео
         window.loadVideo = function() {
             const container = document.getElementById('video-container');
             const iframeWrapper = document.getElementById('iframe-wrapper');
             const playBtn = document.getElementById('play-btn');
             const thumbnail = document.getElementById('video-thumbnail');
 
-            // 1. Убираем обложку и кнопку
             playBtn.style.display = 'none';
             thumbnail.style.display = 'none';
             
-            // 2. Вставляем Iframe (Автоплей = 1, Звук = ВКЛЮЧЕН)
-            // Важно: mute=0 (звук есть), autoplay=1 (играет сразу)
             iframeWrapper.innerHTML = `
                 <iframe 
                     class="w-full h-full"
@@ -292,33 +321,22 @@
                     allowfullscreen>
                 </iframe>
             `;
-            
-            // 3. Показываем iframe
             iframeWrapper.classList.remove('hidden-element');
-            
-            // Убираем возможность кликать на контейнер (чтобы не перезагружать)
             container.onclick = null;
             container.classList.remove('cursor-pointer');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const timerSection = document.getElementById('timer-section');
             const formSection = document.getElementById('form-section');
             const landingScreen = document.getElementById('main-landing-screen');
             const thankYouScreen = document.getElementById('thank-you-screen');
 
-            // 1. Таймер для кнопки
-            setTimeout(() => {
-                timerSection.classList.remove('hidden-element');
-                timerSection.classList.add('visible-by-timer');
-            }, BUTTON_DELAY_MS);
-
-            // 2. Скролл
+            // 1. Скролл к форме
             window.scrollToForm = function() {
                 formSection.scrollIntoView({ behavior: 'smooth' });
             };
 
-            // 3. Обработка формы
+            // 2. Обработка формы
             window.handleFormSubmit = function(e) {
                 e.preventDefault();
                 const btn = e.target.querySelector('button[type="submit"]');

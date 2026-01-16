@@ -102,6 +102,12 @@
             color: #E13030;
             font-size: 1.1em;
         }
+        
+        /* Спеціальний стиль для картки бонусу */
+        .bonus-card {
+            background: linear-gradient(145deg, #13161c 0%, #0f1116 100%);
+            border: 1px solid #2d323e;
+        }
     </style>
     
     <script>
@@ -143,7 +149,7 @@
             </h1>
 
             <!-- Відео -->
-            <div class="w-full relative group fade-in-up max-w-4xl mb-6" style="animation-delay: 0.2s;">
+            <div class="w-full relative group fade-in-up max-w-4xl mb-12" style="animation-delay: 0.2s;">
                 <div class="absolute -inset-1 bg-brand rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
                 
                 <div id="video-container" onclick="loadVideo()" class="relative w-full aspect-video bg-dark-card rounded-xl overflow-hidden shadow-2xl border border-dark-border cursor-pointer group">
@@ -163,133 +169,97 @@
                 </p>
             </div>
 
-            <!-- БЛОК З ОПИСОМ -->
-            <div id="cta-section" class="w-full space-y-8 fade-in-up" style="animation-delay: 0.4s;">
+            <!-- ========================================== -->
+            <!-- НОВА СТРУКТУРА БОНУСІВ -->
+            <!-- ========================================== -->
+            <div id="cta-section" class="w-full max-w-4xl fade-in-up" style="animation-delay: 0.4s;">
                 
-                <div class="bg-dark-card border border-brand/20 rounded-2xl p-6 md:p-10 w-full shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand/5 rounded-full blur-3xl"></div>
+                <!-- Заголовок блоку бонусів -->
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold uppercase text-white mb-2">
+                        Забирай 3 бонуси <br class="md:hidden">після перегляду уроку 🎁
+                    </h2>
+                    <p class="text-gray-400 text-sm md:text-base">
+                        Якщо заповниш анкету <span class="text-brand font-bold">прямо зараз</span>, отримаєш:
+                    </p>
+                </div>
 
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6 text-center leading-snug uppercase">
-                        Отримайте <span class="text-brand border-b-2 border-brand pb-1">безкоштовну консультацію</span><br> 
-                        по природньому омолодженню
+                <!-- БОНУС 1: Головний (Консультація) -->
+                <div class="bonus-card rounded-2xl p-6 md:p-8 mb-6 border-l-4 border-brand shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-5">
+                        <i class="fa-solid fa-comments text-8xl text-white"></i>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                        <span class="bg-brand/20 text-brand w-8 h-8 rounded-full flex items-center justify-center text-sm border border-brand/50">1</span>
+                        Безкоштовна консультація
                     </h3>
-                    
-                    <div class="grid md:grid-cols-2 gap-6 items-center">
-                        <div>
-                            <ul class="check-list text-base leading-relaxed">
-                                <li>
-                                    <strong class="text-white block mb-1">Розбір вашої ситуації</strong>
-                                    Аналіз причин набряків, зморшок та змін овалу обличчя.
-                                </li>
-                                <li>
-                                    <strong class="text-white block mb-1">Методика "Антиботокс"</strong>
-                                    Як за 20 хв/день отримати результат кращий, ніж після уколів.
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul class="check-list text-base leading-relaxed">
-                                <li>
-                                    <strong class="text-white block mb-1">Реальні кейси</strong>
-                                    Покажу результати дівчат зі схожими проблемами.
-                                </li>
-                                <li>
-                                    <strong class="text-white block mb-1">Покроковий план</strong>
-                                    Як прийти до пружної шкіри вже за 3-4 тижні.
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <p class="text-gray-400 text-sm mb-6 uppercase tracking-wider font-semibold border-b border-white/10 pb-2 inline-block">
+                        по природньому омолодженню
+                    </p>
+
+                    <ul class="check-list text-base leading-relaxed relative z-10">
+                        <li>
+                            <strong class="text-white">Розбір вашої ситуації</strong> — аналіз причин набряків, зморшок та змін овалу обличчя.
+                        </li>
+                        <li>
+                            <strong class="text-white">Методика "Антиботокс"</strong> — як за 20 хв/день отримати результат кращий, ніж після уколів.
+                        </li>
+                        <li>
+                            <strong class="text-white">Реальні кейси</strong> — покажу результати дівчат зі схожими проблемами.
+                        </li>
+                        <li>
+                            <strong class="text-white">Покроковий план</strong> — як прийти до пружної шкіри вже за 3-4 тижні.
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Кнопка ПК (Тут прихована для мобільних) -->
-                <div class="flex justify-center w-full mt-8">
-                    <button onclick="scrollToForm()" class="hidden md:flex items-center gap-3 bg-brand hover:bg-brand-hover text-white text-lg font-bold py-5 px-16 rounded-full shadow-[0_10px_40px_-10px_rgba(225,48,48,0.5)] transform hover:-translate-y-1 transition-all duration-300 uppercase tracking-wide">
-                        Заповнити анкету <i class="fa-solid fa-arrow-down animate-bounce"></i>
-                    </button>
-                </div>
-            </div>
-        </main>
-
-        <!-- ========================================== -->
-        <!-- НОВИЙ БЛОК З БОНУСАМИ -->
-        <!-- ========================================== -->
-        <section class="w-full max-w-4xl px-4 mb-4 fade-in-up" style="animation-delay: 0.5s;">
-            <div class="bg-gradient-to-br from-dark-card to-[#1a1010] border border-brand/40 rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-[0_0_40px_rgba(225,48,48,0.15)]">
-                <!-- Декор -->
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand/20 rounded-full blur-3xl"></div>
-                <div class="absolute top-4 right-4 text-brand/20 text-6xl">
-                    <i class="fa-solid fa-gift"></i>
-                </div>
-
-                <h3 class="text-xl md:text-2xl font-bold text-center mb-2 uppercase text-white relative z-10">
-                    Бонуси за <span class="text-brand">швидке рішення</span>
-                </h3>
-                
-                <p class="text-gray-400 text-center mb-6 text-sm md:text-base relative z-10">
-                    Якщо заповниш анкету прямо зараз, отримаєш:
-                </p>
-
-                <div class="space-y-4 relative z-10">
-                    <!-- Бонус 1 -->
-                    <div class="flex items-start gap-4 p-4 bg-[#0b0d12]/60 rounded-xl border border-white/5 hover:border-brand/30 transition-colors">
-                        <div class="text-brand text-lg mt-1 shrink-0"><i class="fa-solid fa-comment-dots"></i></div>
-                        <div>
-                            <h4 class="font-bold text-white text-base">Міні-консультація</h4>
-                            <p class="text-gray-400 text-sm">Розберемо твій запит і підкажемо, з чого почати.</p>
-                        </div>
-                    </div>
-                    
+                <!-- БОНУСИ 2 та 3 (Сітка) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                     <!-- Бонус 2 -->
-                    <div class="flex items-start gap-4 p-4 bg-[#0b0d12]/60 rounded-xl border border-white/5 hover:border-brand/30 transition-colors">
-                        <div class="text-brand text-lg mt-1 shrink-0"><i class="fa-solid fa-circle-play"></i></div>
+                    <div class="bonus-card rounded-xl p-5 border border-white/5 flex items-start gap-4 hover:border-brand/30 transition-colors">
+                        <div class="bg-white/5 text-brand w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-sun text-lg"></i>
+                        </div>
                         <div>
-                            <h4 class="font-bold text-white text-base">Урок “Ранкова рутина”</h4>
-                            <p class="text-gray-400 text-sm">3 простих кроки для свіжості за 5 хвилин від набряків.</p>
+                            <div class="text-xs text-brand font-bold uppercase mb-1">Бонус №2</div>
+                            <h4 class="font-bold text-white text-lg leading-tight mb-1">Урок “Ранкова рутина”</h4>
+                            <p class="text-gray-400 text-xs">3 простих кроки для свіжості обличчя за 5 хвилин.</p>
                         </div>
                     </div>
 
                     <!-- Бонус 3 -->
-                    <div class="flex items-start gap-4 p-4 bg-[#0b0d12]/60 rounded-xl border border-white/5 hover:border-brand/30 transition-colors">
-                        <div class="text-brand text-lg mt-1 shrink-0"><i class="fa-solid fa-percent"></i></div>
+                    <div class="bonus-card rounded-xl p-5 border border-white/5 flex items-start gap-4 hover:border-brand/30 transition-colors">
+                        <div class="bg-white/5 text-brand w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-tag text-lg"></i>
+                        </div>
                         <div>
-                            <h4 class="font-bold text-white text-base">Найвигідніша ціна</h4>
-                            <p class="text-gray-400 text-sm">Спеціальні умови на курс «Антиботокс».</p>
+                            <div class="text-xs text-brand font-bold uppercase mb-1">Бонус №3</div>
+                            <h4 class="font-bold text-white text-lg leading-tight mb-1">Найвигідніша ціна</h4>
+                            <p class="text-gray-400 text-xs">Спеціальні умови на курс «Антиботокс» для учасників.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-6 text-center relative z-10">
-                    <p class="text-white font-medium text-sm animate-pulse flex items-center justify-center gap-2">
-                        Заповнюй і зовсім скоро звʼяжусь з тобою <i class="fa-solid fa-arrow-down text-brand"></i>
+                <!-- Заклик до дії -->
+                <div class="text-center mb-6">
+                    <p class="text-white text-sm md:text-base font-medium animate-pulse flex flex-col items-center gap-2">
+                        Заповнюй і зовсім скоро звʼяжусь з тобою 👇
+                        <i class="fa-solid fa-chevron-down text-brand"></i>
                     </p>
                 </div>
+
             </div>
-        </section>
+        </main>
 
         <!-- Форма -->
-        <section id="form-section" class="w-full bg-dark-card border-t border-dark-border mt-8 py-16 relative">
-            <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-stretch justify-center">
+        <section id="form-section" class="w-full bg-dark-card border-t border-dark-border py-12 relative">
+            <div class="max-w-4xl mx-auto px-4">
                 
-                <div class="hidden md:block w-1/3 relative fade-in-up">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-dark-border h-full min-h-[500px]">
-                        <img src="image_5.jpg" alt="Expert" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#0b0d12] via-transparent to-transparent"></div>
-                        <div class="absolute bottom-8 left-8 text-white">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="bg-brand w-2 h-2 rounded-full"></span>
-                                <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Expert</p>
-                            </div>
-                            <p class="font-bold text-2xl uppercase leading-none">Індивідуальний<br>підхід</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w-full md:w-1/2 bg-[#0b0d12] p-6 md:p-10 rounded-2xl border border-dark-border shadow-2xl fade-in-up" style="animation-delay: 0.3s;">
-                    <div class="mb-8">
-                        <h2 class="text-3xl font-bold text-white mb-3 uppercase">Анкета запису</h2>
-                        <div class="h-1 w-16 bg-brand rounded-full mb-4"></div>
-                        <p class="text-gray-400 text-sm leading-relaxed">Заповніть форму нижче, щоб отримати консультацію та <span class="text-brand">всі бонуси</span>.</p>
+                <div class="bg-[#0b0d12] p-6 md:p-10 rounded-2xl border border-dark-border shadow-2xl fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-white mb-2 uppercase">Анкета запису</h2>
+                        <div class="h-1 w-20 bg-brand rounded-full mx-auto"></div>
                     </div>
 
                     <form id="vsl-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
@@ -323,7 +293,7 @@
                         </div>
 
                         <button type="submit" class="w-full bg-brand hover:bg-brand-hover text-white font-bold py-5 rounded-xl shadow-lg shadow-red-900/20 transform active:scale-95 transition-all duration-200 mt-2 uppercase tracking-wide text-sm flex justify-center items-center gap-2">
-                            <span>Забрати бонуси</span> <i class="fa-solid fa-gift"></i>
+                            <span>Забрати бонуси</span> <i class="fa-solid fa-paper-plane"></i>
                         </button>
                     </form>
                 </div>
@@ -340,7 +310,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- ЕКРАН 2 -->
+    <!-- ЕКРАН 2 (Дякую) -->
     <!-- ========================================== -->
     <div id="thank-you-screen" class="hidden-element relative z-20 w-full min-h-screen flex items-center justify-center p-4">
         <div class="max-w-md w-full bg-dark-card border border-dark-border rounded-3xl p-8 text-center shadow-2xl fade-in">

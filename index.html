@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- !!! БІБЛІОТЕКА ДЛЯ ТЕЛЕФОНІВ (CSS) !!! -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
 
     <style>
         body {
@@ -40,10 +43,8 @@
             to { opacity: 1; }
         }
 
-        /* Утиліти */
         .hidden-element { display: none !important; }
         
-        /* Кнопка на мобільному */
         .mobile-fixed-btn {
             position: fixed;
             bottom: 10px; 
@@ -54,7 +55,6 @@
             box-shadow: 0 5px 20px rgba(225, 48, 48, 0.5); 
         }
 
-        /* Кнопка Play */
         .play-button-wrapper {
             position: absolute;
             top: 50%;
@@ -74,16 +74,44 @@
             100% { box-shadow: 0 0 0 0 rgba(225, 48, 48, 0); }
         }
 
+        /* Стилі інпутів */
         .custom-input {
             background-color: #1a1d26;
             border: 1px solid #2d323e;
             color: white;
             transition: all 0.3s ease;
+            width: 100%;
         }
         .custom-input:focus {
             border-color: #E13030;
             box-shadow: 0 0 0 4px rgba(225, 48, 48, 0.1);
             outline: none;
+        }
+
+        /* --- АДАПТАЦІЯ БІБЛІОТЕКИ ТЕЛЕФОНІВ ПІД ТЕМНИЙ СТИЛЬ --- */
+        .iti { width: 100%; }
+        .iti__country-list {
+            background-color: #1a1d26;
+            border: 1px solid #2d323e;
+            color: white;
+        }
+        /* Колір обраної країни в списку */
+        .iti__country.iti__highlight {
+            background-color: #E13030; 
+        }
+        /* Стиль самого поля вводу телефону */
+        .iti__tel-input {
+            background-color: #1a1d26 !important;
+            border: 1px solid #2d323e !important;
+            color: white !important;
+            border-radius: 0.75rem !important; /* rounded-xl */
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+        }
+        .iti__tel-input:focus {
+            border-color: #E13030 !important;
+            box-shadow: 0 0 0 4px rgba(225, 48, 48, 0.1) !important;
+            outline: none !important;
         }
 
         .check-list li {
@@ -103,7 +131,6 @@
             font-size: 1.1em;
         }
         
-        /* Спеціальний стиль для картки бонусу */
         .bonus-card {
             background: linear-gradient(145deg, #13161c 0%, #0f1116 100%);
             border: 1px solid #2d323e;
@@ -132,6 +159,7 @@
 </head>
 <body class="min-h-screen flex flex-col items-center overflow-x-hidden relative">
 
+    <!-- Фонове світіння -->
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px]"></div>
         <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[100px]"></div>
@@ -169,12 +197,9 @@
                 </p>
             </div>
 
-            <!-- ========================================== -->
-            <!-- НОВА СТРУКТУРА БОНУСІВ -->
-            <!-- ========================================== -->
+            <!-- БОНУСИ -->
             <div id="cta-section" class="w-full max-w-4xl fade-in-up" style="animation-delay: 0.4s;">
                 
-                <!-- Заголовок блоку бонусів -->
                 <div class="text-center mb-8">
                     <h2 class="text-2xl md:text-3xl font-bold uppercase text-white mb-2">
                         Забирай 3 бонуси <br class="md:hidden">після перегляду уроку 🎁
@@ -184,7 +209,7 @@
                     </p>
                 </div>
 
-                <!-- БОНУС 1: Головний (Консультація) -->
+                <!-- Бонус 1 -->
                 <div class="bonus-card rounded-2xl p-6 md:p-8 mb-6 border-l-4 border-brand shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative overflow-hidden">
                     <div class="absolute top-0 right-0 p-4 opacity-5">
                         <i class="fa-solid fa-comments text-8xl text-white"></i>
@@ -199,24 +224,15 @@
                     </p>
 
                     <ul class="check-list text-base leading-relaxed relative z-10">
-                        <li>
-                            <strong class="text-white">Розбір вашої ситуації</strong> — аналіз причин набряків, зморшок та змін овалу обличчя.
-                        </li>
-                        <li>
-                            <strong class="text-white">Методика "Антиботокс"</strong> — як за 20 хв/день отримати результат кращий, ніж після уколів.
-                        </li>
-                        <li>
-                            <strong class="text-white">Реальні кейси</strong> — покажу результати дівчат зі схожими проблемами.
-                        </li>
-                        <li>
-                            <strong class="text-white">Покроковий план</strong> — як прийти до пружної шкіри вже за 3-4 тижні.
-                        </li>
+                        <li><strong class="text-white">Розбір вашої ситуації</strong> — аналіз причин набряків, зморшок та змін овалу обличчя.</li>
+                        <li><strong class="text-white">Методика "Антиботокс"</strong> — як за 20 хв/день отримати результат кращий, ніж після уколів.</li>
+                        <li><strong class="text-white">Реальні кейси</strong> — покажу результати дівчат зі схожими проблемами.</li>
+                        <li><strong class="text-white">Покроковий план</strong> — як прийти до пружної шкіри вже за 3-4 тижні.</li>
                     </ul>
                 </div>
 
-                <!-- БОНУСИ 2 та 3 (Сітка) -->
+                <!-- Бонуси 2 та 3 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                    <!-- Бонус 2 -->
                     <div class="bonus-card rounded-xl p-5 border border-white/5 flex items-start gap-4 hover:border-brand/30 transition-colors">
                         <div class="bg-white/5 text-brand w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-sun text-lg"></i>
@@ -228,7 +244,6 @@
                         </div>
                     </div>
 
-                    <!-- Бонус 3 -->
                     <div class="bonus-card rounded-xl p-5 border border-white/5 flex items-start gap-4 hover:border-brand/30 transition-colors">
                         <div class="bg-white/5 text-brand w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
                             <i class="fa-solid fa-tag text-lg"></i>
@@ -241,7 +256,6 @@
                     </div>
                 </div>
 
-                <!-- Заклик до дії -->
                 <div class="text-center mb-6">
                     <p class="text-white text-sm md:text-base font-medium animate-pulse flex flex-col items-center gap-2">
                         Заповнюй і зовсім скоро звʼяжусь з тобою 👇
@@ -266,24 +280,26 @@
                         <div>
                             <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Ваше ім'я</label>
                             <div class="relative">
-                                <i class="fa-regular fa-user absolute left-4 top-4 text-gray-500"></i>
-                                <input type="text" name="name" required placeholder="Олена" class="w-full custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
+                                <i class="fa-regular fa-user absolute left-4 top-4 text-gray-500 z-10"></i>
+                                <input type="text" name="name" required placeholder="Олена" class="custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
                             </div>
                         </div>
 
+                        <!-- ОНОВЛЕНИЙ БЛОК ТЕЛЕФОНУ -->
                         <div>
                             <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Телефон</label>
-                            <div class="relative">
-                                <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500"></i>
-                                <input type="tel" name="phone" required placeholder="+38 (0XX) ..." class="w-full custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
-                            </div>
+                            <!-- Важливо: прибрали іконку всередині, бо там буде прапор -->
+                            <input type="tel" id="phone" name="phone" required class="custom-input rounded-xl py-4 focus:outline-none placeholder-gray-600">
+                            <!-- Прихований інпут для повного номера з кодом, який піде на сервер -->
+                            <input type="hidden" name="full_phone" id="full_phone">
                         </div>
 
+                        <!-- ОНОВЛЕНИЙ БЛОК ТЕЛЕГРАМ -->
                         <div>
                             <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Telegram (@)</label>
                             <div class="relative">
-                                <i class="fa-brands fa-telegram absolute left-4 top-4 text-gray-500"></i>
-                                <input type="text" name="telegram" required placeholder="@nickname" class="w-full custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
+                                <i class="fa-brands fa-telegram absolute left-4 top-4 text-gray-500 z-10"></i>
+                                <input type="text" id="telegram-input" name="telegram" required placeholder="@nickname" class="custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
                             </div>
                         </div>
 
@@ -299,50 +315,43 @@
                 </div>
             </div>
             
-            <!-- Простір знизу для мобільного -->
             <div class="md:hidden h-20"></div>
         </section>
         
-        <!-- Кнопка Мобільна (Фіксована) -->
         <button onclick="scrollToForm()" class="md:hidden mobile-fixed-btn bg-brand hover:bg-brand-hover text-white text-lg font-bold py-4 rounded-xl shadow-2xl border-t border-white/10 uppercase tracking-wide flex justify-center items-center">
             Заповнити анкету <i class="fa-solid fa-pen ml-3"></i>
         </button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- ЕКРАН 2 (Дякую) -->
-    <!-- ========================================== -->
+    <!-- ЕКРАН 2 -->
     <div id="thank-you-screen" class="hidden-element relative z-20 w-full min-h-screen flex items-center justify-center p-4">
         <div class="max-w-md w-full bg-dark-card border border-dark-border rounded-3xl p-8 text-center shadow-2xl fade-in">
-            
             <div class="w-24 h-24 mx-auto mb-6 rounded-full p-1 border-2 border-brand shadow-[0_0_30px_rgba(225,48,48,0.2)]">
                 <img src="image_1.jpg" alt="Svitlana" class="w-full h-full rounded-full object-cover">
             </div>
-
             <div class="mb-8">
                 <i class="fa-solid fa-check text-4xl text-brand mb-4"></i>
                 <h2 class="text-3xl font-bold text-white mb-2 uppercase">Дякуємо!</h2>
                 <p class="text-gray-400">Ваша анкета успішно відправлена.</p>
             </div>
-
             <div class="bg-[#0b0d12] rounded-xl p-6 mb-8 border border-dark-border text-left">
                 <p class="text-brand text-xs font-bold uppercase mb-2">Наступний крок:</p>
                 <p class="text-white text-sm leading-relaxed">
                     Поки я вивчаю вашу анкету, підпишіться на мій Telegram-канал. Там я ділюся порадами по тейпуванню щодня.
                 </p>
             </div>
-
             <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="block w-full bg-[#229ED9] hover:bg-[#1c8ec4] text-white text-lg font-bold py-4 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-300">
                 <i class="fa-brands fa-telegram mr-2"></i> Перейти в канал
             </a>
-            
-            <p class="mt-6 text-xs text-gray-500">
-                Скоро зв'яжемось
-            </p>
+            <p class="mt-6 text-xs text-gray-500">Скоро зв'яжемось</p>
         </div>
     </div>
 
+    <!-- !!! СКРИПТ БІБЛІОТЕКИ ТЕЛЕФОНІВ !!! -->
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+
     <script>
+        // Запуск відео
         window.loadVideo = function() {
             const container = document.getElementById('video-container');
             const iframeWrapper = document.getElementById('iframe-wrapper');
@@ -368,6 +377,39 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. ВАЛІДАЦІЯ ТЕЛЕФОНУ (АВТОМАТИЧНА КРАЇНА) ---
+            const input = document.querySelector("#phone");
+            const iti = window.intlTelInput(input, {
+                initialCountry: "auto",
+                geoIpLookup: callback => {
+                    fetch("https://ipapi.co/json")
+                        .then(res => res.json())
+                        .then(data => callback(data.country_code))
+                        .catch(() => callback("ua"));
+                },
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+                separateDialCode: true, // Показувати код окремо (+380)
+            });
+
+            // --- 2. ВАЛІДАЦІЯ TELEGRAM (АВТОМАТИЧНИЙ @) ---
+            const telegramInput = document.getElementById('telegram-input');
+            telegramInput.addEventListener('input', function(e) {
+                let value = e.target.value;
+                // Якщо користувач почав писати і перший символ не @, додаємо його
+                if (value.length > 0 && !value.startsWith('@')) {
+                    e.target.value = '@' + value;
+                }
+            });
+            // На випадок, якщо користувач зітре все і піде
+            telegramInput.addEventListener('blur', function(e) {
+                let value = e.target.value;
+                if (value.length > 0 && !value.startsWith('@')) {
+                    e.target.value = '@' + value;
+                }
+            });
+
+            // --- 3. СТАНДАРТНА ЛОГІКА ФОРМИ ---
             const formSection = document.getElementById('form-section');
             const landingScreen = document.getElementById('main-landing-screen');
             const thankYouScreen = document.getElementById('thank-you-screen');
@@ -378,8 +420,18 @@
 
             window.handleFormSubmit = function(e) {
                 e.preventDefault();
-                const btn = e.target.querySelector('button[type="submit"]');
                 
+                // Зберігаємо повний номер телефону з кодом країни
+                const fullPhone = iti.getNumber();
+                document.getElementById('full_phone').value = fullPhone;
+
+                // Перевірка валідності номера
+                if (!iti.isValidNumber()) {
+                    alert("Будь ласка, введіть коректний номер телефону");
+                    return;
+                }
+
+                const btn = e.target.querySelector('button[type="submit"]');
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Відправка...';
                 btn.classList.add('opacity-75');

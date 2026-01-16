@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Антиботокс: Як повернути молодість за 20 хвилин</title>
+    <title>Антиботокс: Як повернути молодість</title>
     
-    <!-- Подключение Tailwind CSS -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Иконки FontAwesome -->
+    <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Шрифт Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
             scroll-behavior: smooth;
+            background-color: #0b0d12; /* Глибокий темний фон */
+            color: #ffffff;
         }
         
-        /* Анимации */
+        /* Анімації */
         .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
+            animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         
         @keyframes fadeInUp {
@@ -38,17 +40,10 @@
             to { opacity: 1; }
         }
 
-        /* Скроллбар */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #18181b; }
-        ::-webkit-scrollbar-thumb { background: #d946ef; border-radius: 4px; }
-
-        /* Эффекты */
-        .video-glow { box-shadow: 0 0 40px rgba(217, 70, 239, 0.15); }
-
-        /* Утилиты */
+        /* Утиліти */
         .hidden-element { display: none !important; }
         
+        /* Кнопка на мобільному (червона тінь) */
         .mobile-fixed-btn {
             position: fixed;
             bottom: 20px;
@@ -56,10 +51,10 @@
             transform: translateX(-50%);
             width: 90%;
             z-index: 50;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(225, 48, 48, 0.4);
         }
 
-        /* Стиль кнопки Play на видео */
+        /* Кнопка Play */
         .play-button-wrapper {
             position: absolute;
             top: 50%;
@@ -70,21 +65,34 @@
         }
         
         .play-btn-pulse {
-            animation: pulse-ring 2s infinite;
+            animation: pulse-red 2s infinite;
         }
         
-        @keyframes pulse-ring {
-            0% { box-shadow: 0 0 0 0 rgba(217, 70, 239, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(217, 70, 239, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(217, 70, 239, 0); }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(225, 48, 48, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(225, 48, 48, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 48, 48, 0); }
         }
 
-        /* Список галочек */
+        /* Стилі полів форми (Темні) */
+        .custom-input {
+            background-color: #1a1d26;
+            border: 1px solid #2d323e;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .custom-input:focus {
+            border-color: #E13030;
+            box-shadow: 0 0 0 4px rgba(225, 48, 48, 0.1);
+            outline: none;
+        }
+
+        /* Список галочок */
         .check-list li {
             position: relative;
             padding-left: 30px;
-            margin-bottom: 12px;
-            color: #d4d4d8; /* zinc-300 */
+            margin-bottom: 14px;
+            color: #d1d5db; /* gray-300 */
         }
         .check-list li::before {
             content: '\f00c';
@@ -92,8 +100,9 @@
             font-weight: 900;
             position: absolute;
             left: 0;
-            top: 2px;
-            color: #d946ef; /* brand color */
+            top: 4px;
+            color: #E13030; /* Червона галочка */
+            font-size: 1.1em;
         }
     </style>
     
@@ -103,9 +112,13 @@
                 extend: {
                     colors: {
                         brand: {
-                            light: '#e879f9',
-                            DEFAULT: '#d946ef',
-                            dark: '#a21caf',
+                            DEFAULT: '#E13030', // Червоний акцент
+                            hover: '#b91c1c',
+                        },
+                        dark: {
+                            bg: '#0b0d12',
+                            card: '#13161c',
+                            border: '#2d323e'
                         }
                     }
                 }
@@ -113,151 +126,169 @@
         }
     </script>
 </head>
-<body class="bg-zinc-950 text-white min-h-screen flex flex-col items-center overflow-x-hidden relative">
+<body class="min-h-screen flex flex-col items-center overflow-x-hidden relative">
 
-    <!-- Фоновое изображение -->
-    <div class="fixed inset-0 z-0">
-        <div class="absolute inset-0 bg-zinc-950/90 z-10"></div>
-        <img src="image_3.jpg" alt="Background" class="w-full h-full object-cover opacity-40 blur-sm">
+    <!-- Червоне фонове світіння -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[100px]"></div>
     </div>
 
     <!-- ========================================== -->
-    <!-- ЭКРАН 1: ЛЕНДИНГ -->
+    <!-- ЕКРАН 1: ГОЛОВНИЙ -->
     <!-- ========================================== -->
     <div id="main-landing-screen" class="relative z-10 w-full flex flex-col items-center transition-opacity duration-500">
         
-        <main class="w-full max-w-4xl px-4 py-8 md:py-16 flex flex-col items-center">
+        <main class="w-full max-w-5xl px-4 py-10 md:py-16 flex flex-col items-center">
             
-            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-center mb-8 leading-tight fade-in-up">
-                Як прибрати <span class="text-brand">набряки та зморшки</span><br> за 10 хвилин на день
+            <!-- Заголовок -->
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-center mb-8 leading-tight fade-in-up uppercase">
+                Як прибрати <span class="text-brand">набряки та<br> зморшки</span> за 10 хвилин
             </h1>
 
-            <!-- Блок Видео (Smart Player) -->
-            <div class="w-full relative group fade-in-up" style="animation-delay: 0.2s;">
-                <div class="absolute -inset-1 bg-gradient-to-r from-brand-dark to-brand rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <!-- Блок Відео -->
+            <div class="w-full relative group fade-in-up max-w-4xl mb-10" style="animation-delay: 0.2s;">
+                <div class="absolute -inset-1 bg-brand rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
                 
-                <div id="video-container" onclick="loadVideo()" class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-2xl video-glow border border-zinc-800 cursor-pointer group">
-                    <!-- Обложка -->
-                    <img id="video-thumbnail" src="https://img.youtube.com/vi/dTPuMrYxiCA/maxresdefault.jpg" alt="Video Thumbnail" class="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-all duration-300">
+                <div id="video-container" onclick="loadVideo()" class="relative w-full aspect-video bg-dark-card rounded-xl overflow-hidden shadow-2xl border border-dark-border cursor-pointer group">
+                    <!-- Обкладинка (З YouTube) -->
+                    <img id="video-thumbnail" src="https://img.youtube.com/vi/dTPuMrYxiCA/maxresdefault.jpg" alt="Video Thumbnail" class="w-full h-full object-cover opacity-90 group-hover:opacity-80 transition-all duration-300">
+                    
                     <!-- Кнопка Play -->
                     <div id="play-btn" class="play-button-wrapper">
                         <div class="bg-brand text-white w-20 h-20 rounded-full flex items-center justify-center shadow-lg play-btn-pulse transition-transform transform group-hover:scale-110">
-                            <i class="fa-solid fa-play text-3xl ml-2"></i>
+                            <i class="fa-solid fa-play text-3xl ml-1"></i>
                         </div>
                     </div>
-                    <!-- Место для Iframe -->
+                    
+                    <!-- Iframe -->
                     <div id="iframe-wrapper" class="w-full h-full absolute inset-0 hidden-element"></div>
                 </div>
                 
-                <p class="mt-3 text-zinc-500 text-xs text-center flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-hand-pointer"></i> Натисніть на відео для перегляду
+                <p class="mt-4 text-gray-500 text-xs text-center uppercase tracking-widest font-semibold">
+                    <i class="fa-solid fa-volume-high text-brand mr-2"></i> Натисніть для перегляду
                 </p>
             </div>
 
-            <!-- СЕКЦИЯ CTA (Видна сразу, animation-delay делает красивый выход после видео) -->
-            <div id="cta-section" class="w-full mt-10 space-y-8 fade-in-up" style="animation-delay: 0.4s;">
+            <!-- БЛОК З ОПИСОМ (CTA Section) -->
+            <div id="cta-section" class="w-full space-y-8 fade-in-up" style="animation-delay: 0.4s;">
                 
-                <!-- ТЕКСТОВЫЙ БЛОК -->
-                <div class="bg-zinc-900/80 border border-brand/30 rounded-2xl p-6 md:p-8 w-full backdrop-blur-sm shadow-xl">
-                    <h3 class="text-xl md:text-2xl font-bold text-white mb-6 text-center leading-snug">
-                        Прямо зараз ти можеш отримати <span class="text-brand">безкоштовну консультацію</span> по природньому омолодженню та дізнатися, як повернути обличчю свіжість.
+                <!-- Картка з текстом -->
+                <div class="bg-dark-card border border-brand/20 rounded-2xl p-6 md:p-10 w-full shadow-2xl relative overflow-hidden">
+                    <!-- Декор -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand/5 rounded-full blur-3xl"></div>
+
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-8 text-center leading-snug uppercase">
+                        Отримайте <span class="text-brand border-b-2 border-brand pb-1">безкоштовну консультацію</span><br> 
+                        по природньому омолодженню
                     </h3>
                     
-                    <p class="text-zinc-400 font-semibold mb-4 uppercase tracking-wider text-sm">На консультації ми:</p>
-                    
-                    <ul class="check-list text-base md:text-lg space-y-3">
-                        <li>
-                            <strong class="text-white">Розберемо вашу ситуацію:</strong> проаналізуємо набряки, зморшки, стан овалу обличчя та визначимо причини змін.
-                        </li>
-                        <li>
-                            <strong class="text-white">Пояснимо методику:</strong> як, приділяючи всього 20 хвилин на день, отримати результат кращий, ніж після уколів краси.
-                        </li>
-                        <li>
-                            <strong class="text-white">Покажемо реальні приклади:</strong> результати дівчат зі схожими запитами, які вже пройшли курс.
-                        </li>
-                        <li>
-                            <strong class="text-white">Складемо план:</strong> ви отримаєте чітке розуміння, як прийти до пружної шкіри та чіткого овалу вже за 3-4 тижні.
-                        </li>
-                    </ul>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <p class="text-gray-400 font-bold mb-4 uppercase tracking-widest text-xs">Що буде на розборі:</p>
+                            <ul class="check-list text-base leading-relaxed">
+                                <li>
+                                    <strong class="text-white block mb-1">Розбір вашої ситуації</strong>
+                                    Аналіз причин набряків, зморшок та змін овалу обличчя.
+                                </li>
+                                <li>
+                                    <strong class="text-white block mb-1">Методика "Антиботокс"</strong>
+                                    Як за 20 хв/день отримати результат кращий, ніж після уколів.
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="check-list text-base leading-relaxed">
+                                <li>
+                                    <strong class="text-white block mb-1">Реальні кейси</strong>
+                                    Покажу результати дівчат зі схожими проблемами.
+                                </li>
+                                <li>
+                                    <strong class="text-white block mb-1">Покроковий план</strong>
+                                    Як прийти до пружної шкіри вже за 3-4 тижні.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Кнопки -->
-                <div class="flex justify-center w-full">
-                    <button onclick="scrollToForm()" class="hidden md:block bg-brand hover:bg-brand-light text-white text-xl font-bold py-4 px-12 rounded-full shadow-[0_0_20px_rgba(217,70,239,0.5)] transform hover:scale-105 transition-all duration-300 animate-pulse">
-                        Заповнити анкету <i class="fa-solid fa-arrow-down ml-2"></i>
+                <div class="flex justify-center w-full mt-8">
+                    <button onclick="scrollToForm()" class="hidden md:flex items-center gap-3 bg-brand hover:bg-brand-hover text-white text-lg font-bold py-5 px-16 rounded-full shadow-[0_10px_40px_-10px_rgba(225,48,48,0.5)] transform hover:-translate-y-1 transition-all duration-300 uppercase tracking-wide">
+                        Заповнити анкету <i class="fa-solid fa-arrow-down animate-bounce"></i>
                     </button>
                 </div>
 
-                <!-- Мобильная фиксированная кнопка -->
-                <button onclick="scrollToForm()" class="md:hidden mobile-fixed-btn bg-brand hover:bg-brand-light text-white text-lg font-bold py-4 rounded-xl shadow-2xl border border-brand-light/30 animate-pulse flex justify-center items-center">
-                    Заповнити анкету <i class="fa-solid fa-file-pen ml-2"></i>
+                <!-- Мобільна кнопка -->
+                <button onclick="scrollToForm()" class="md:hidden mobile-fixed-btn bg-brand hover:bg-brand-hover text-white text-lg font-bold py-4 rounded-xl shadow-lg border-t border-white/10 uppercase tracking-wide flex justify-center items-center">
+                    Заповнити анкету <i class="fa-solid fa-pen ml-3"></i>
                 </button>
                 
-                <p class="text-zinc-400 text-sm text-center md:block hidden">
-                    Місця на консультацію обмежені
+                <p class="text-gray-500 text-xs text-center md:block hidden uppercase tracking-wider">
+                    * Кількість місць обмежена
                 </p>
             </div>
         </main>
 
         <!-- Форма -->
-        <section id="form-section" class="w-full bg-zinc-900 border-t border-zinc-800 mt-12 py-16">
-            <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-center justify-center">
+        <section id="form-section" class="w-full bg-dark-card border-t border-dark-border mt-12 py-16 md:py-24 relative">
+            <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-12 items-stretch justify-center">
                 
-                <!-- Фото эксперта -->
+                <!-- Фото експерта (Картка) -->
                 <div class="hidden md:block w-1/3 relative fade-in-up">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-zinc-700 h-[500px]">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-dark-border h-full min-h-[500px]">
                         <img src="image_5.jpg" alt="Expert" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-6 left-6 text-white">
-                            <p class="font-bold text-lg">Індивідуальний підхід</p>
-                            <p class="text-zinc-400 text-sm">Розберемо вашу ситуацію</p>
+                        <!-- Градієнт -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0b0d12] via-transparent to-transparent"></div>
+                        <div class="absolute bottom-8 left-8 text-white">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-brand w-2 h-2 rounded-full"></span>
+                                <p class="text-xs uppercase tracking-widest text-gray-400 font-bold">Expert</p>
+                            </div>
+                            <p class="font-bold text-2xl uppercase leading-none">Індивідуальний<br>підхід</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Форма -->
-                <div class="w-full md:w-1/2 bg-zinc-950 p-8 rounded-2xl border border-zinc-800 shadow-2xl fade-in-up" style="animation-delay: 0.3s;">
-                    <div class="text-center mb-8">
-                        <h2 class="text-2xl font-bold text-white mb-2">Анкета запису</h2>
-                        <p class="text-zinc-400 text-sm">Заповніть форму нижче, щоб отримати консультацію.</p>
+                <!-- Сама форма -->
+                <div class="w-full md:w-1/2 bg-[#0b0d12] p-8 md:p-10 rounded-2xl border border-dark-border shadow-2xl fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold text-white mb-3 uppercase">Анкета запису</h2>
+                        <div class="h-1 w-16 bg-brand rounded-full mb-4"></div>
+                        <p class="text-gray-400 text-sm leading-relaxed">Заповніть форму нижче, щоб отримати персональну консультацію.</p>
                     </div>
 
-                    <form id="vsl-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                    <form id="vsl-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
                         <div>
-                            <label class="block text-zinc-400 text-sm font-semibold mb-2 ml-1">Ваше ім'я *</label>
+                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Ваше ім'я</label>
                             <div class="relative">
-                                <i class="fa-regular fa-user absolute left-4 top-3.5 text-zinc-500"></i>
-                                <input type="text" name="name" required placeholder="Олена" class="w-full bg-zinc-900 text-white border border-zinc-700 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:border-brand transition-all">
+                                <i class="fa-regular fa-user absolute left-4 top-4 text-gray-500"></i>
+                                <input type="text" name="name" required placeholder="Олена" class="w-full custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-zinc-400 text-sm font-semibold mb-2 ml-1">Номер телефону *</label>
+                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Телефон</label>
                             <div class="relative">
-                                <i class="fa-solid fa-phone absolute left-4 top-3.5 text-zinc-500"></i>
-                                <input type="tel" name="phone" required placeholder="+38 (0XX) XXX XX XX" class="w-full bg-zinc-900 text-white border border-zinc-700 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:border-brand transition-all">
+                                <i class="fa-solid fa-phone absolute left-4 top-4 text-gray-500"></i>
+                                <input type="tel" name="phone" required placeholder="+38 (0XX) ..." class="w-full custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-zinc-400 text-sm font-semibold mb-2 ml-1">Ваш нік у телеграм (через @) *</label>
+                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Telegram (@)</label>
                             <div class="relative">
-                                <i class="fa-brands fa-telegram absolute left-4 top-3.5 text-zinc-500"></i>
-                                <input type="text" name="telegram" required placeholder="@nickname" class="w-full bg-zinc-900 text-white border border-zinc-700 rounded-xl py-3 pl-10 pr-4 focus:outline-none focus:border-brand transition-all">
+                                <i class="fa-brands fa-telegram absolute left-4 top-4 text-gray-500"></i>
+                                <input type="text" name="telegram" required placeholder="@nickname" class="w-full custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-zinc-400 text-sm font-semibold mb-2 ml-1">Який ключовий запит на консультацію?</label>
-                            <textarea name="query" rows="2" placeholder="Наприклад: хочу прибрати носогубку..." class="w-full bg-zinc-900 text-white border border-zinc-700 rounded-xl py-3 px-4 focus:outline-none focus:border-brand transition-all"></textarea>
+                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Ваш запит</label>
+                            <textarea name="query" rows="2" placeholder="Хочу прибрати носогубку..." class="w-full custom-input rounded-xl py-3 px-4 focus:outline-none placeholder-gray-600 resize-none"></textarea>
                         </div>
 
-                        <div>
-                            <label class="block text-zinc-400 text-sm font-semibold mb-2 ml-1">Що хочете отримати на консультації?</label>
-                            <textarea name="expectations" rows="2" placeholder="Наприклад: план дій на місяць..." class="w-full bg-zinc-900 text-white border border-zinc-700 rounded-xl py-3 px-4 focus:outline-none focus:border-brand transition-all"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full bg-brand hover:bg-brand-light text-white font-bold py-4 rounded-xl shadow-lg transform active:scale-95 transition-all duration-200 mt-4">
+                        <button type="submit" class="w-full bg-brand hover:bg-brand-hover text-white font-bold py-5 rounded-xl shadow-lg shadow-red-900/20 transform active:scale-95 transition-all duration-200 mt-2 uppercase tracking-wide text-sm">
                             Відправити анкету
                         </button>
                     </form>
@@ -267,41 +298,40 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- ЭКРАН 2: THANK YOU PAGE -->
+    <!-- ЕКРАН 2: THANK YOU PAGE -->
     <!-- ========================================== -->
     <div id="thank-you-screen" class="hidden-element relative z-20 w-full min-h-screen flex items-center justify-center p-4">
-        <div class="max-w-md w-full bg-zinc-900/90 backdrop-blur-md border border-brand/30 rounded-3xl p-8 text-center shadow-[0_0_50px_rgba(217,70,239,0.2)] fade-in">
+        <div class="max-w-md w-full bg-dark-card border border-dark-border rounded-3xl p-8 text-center shadow-2xl fade-in">
             
-            <div class="w-24 h-24 mx-auto mb-6 rounded-full p-1 bg-gradient-to-tr from-brand to-brand-dark shadow-xl">
-                <img src="image_1.jpg" alt="Svitlana Tape" class="w-full h-full rounded-full object-cover border-2 border-zinc-900">
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full p-1 border-2 border-brand shadow-[0_0_30px_rgba(225,48,48,0.2)]">
+                <img src="image_1.jpg" alt="Svitlana" class="w-full h-full rounded-full object-cover">
             </div>
 
-            <div class="mb-6">
-                <i class="fa-regular fa-circle-check text-5xl text-green-500 mb-4 animate-bounce"></i>
-                <h2 class="text-3xl font-bold text-white mb-2">Дякуємо!</h2>
-                <p class="text-zinc-300 text-lg">Ваша анкета успішно відправлена.</p>
+            <div class="mb-8">
+                <i class="fa-solid fa-check text-4xl text-brand mb-4"></i>
+                <h2 class="text-3xl font-bold text-white mb-2 uppercase">Дякуємо!</h2>
+                <p class="text-gray-400">Ваша анкета успішно відправлена.</p>
             </div>
 
-            <div class="bg-zinc-800/50 rounded-xl p-5 mb-8 border border-zinc-700">
-                <p class="text-zinc-400 text-sm mb-3">Що робити далі?</p>
-                <p class="text-white font-medium leading-relaxed">
+            <div class="bg-[#0b0d12] rounded-xl p-6 mb-8 border border-dark-border text-left">
+                <p class="text-brand text-xs font-bold uppercase mb-2">Наступний крок:</p>
+                <p class="text-white text-sm leading-relaxed">
                     Поки я вивчаю вашу анкету, підпишіться на мій Telegram-канал. Там я ділюся порадами по тейпуванню щодня.
                 </p>
             </div>
 
-            <!-- ССЫЛКА НА ТГ -->
-            <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="block w-full bg-[#229ED9] hover:bg-[#1a8bc4] text-white text-lg font-bold py-4 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300">
+            <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="block w-full bg-[#229ED9] hover:bg-[#1c8ec4] text-white text-lg font-bold py-4 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-300">
                 <i class="fa-brands fa-telegram mr-2"></i> Перейти в канал
             </a>
             
-            <p class="mt-4 text-xs text-zinc-500">
-                Я зв'яжусь з вами найближчим часом
+            <p class="mt-6 text-xs text-gray-500">
+                Скоро зв'яжемось
             </p>
         </div>
     </div>
 
     <script>
-        // Логика запуска видео
+        // Запуск відео
         window.loadVideo = function() {
             const container = document.getElementById('video-container');
             const iframeWrapper = document.getElementById('iframe-wrapper');
@@ -311,6 +341,7 @@
             playBtn.style.display = 'none';
             thumbnail.style.display = 'none';
             
+            // Вставляємо ID вашого відео: dTPuMrYxiCA
             iframeWrapper.innerHTML = `
                 <iframe 
                     class="w-full h-full"
@@ -331,19 +362,19 @@
             const landingScreen = document.getElementById('main-landing-screen');
             const thankYouScreen = document.getElementById('thank-you-screen');
 
-            // 1. Скролл к форме
+            // 1. Скрол
             window.scrollToForm = function() {
                 formSection.scrollIntoView({ behavior: 'smooth' });
             };
 
-            // 2. Обработка формы
+            // 2. Обробка форми
             window.handleFormSubmit = function(e) {
                 e.preventDefault();
                 const btn = e.target.querySelector('button[type="submit"]');
-                const originalText = btn.innerText;
                 
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Відправка...';
+                btn.classList.add('opacity-75');
 
                 setTimeout(() => {
                     landingScreen.style.opacity = '0';

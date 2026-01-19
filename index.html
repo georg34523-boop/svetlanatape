@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Антиботокс: Як повернути молодість</title>
+    <title>Діагностика обличчя | Svitlana Tape</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,7 +12,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- !!! БІБЛІОТЕКА ДЛЯ ТЕЛЕФОНІВ (CSS) !!! -->
+    <!-- Бібліотека для телефонів -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
 
     <style>
@@ -34,47 +34,72 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
+        /* --- HERO BACKGROUND --- */
+        .hero-section {
+            background-image: url('fonfoto.jpg'); 
+            background-size: cover;
+            background-position: center top; 
+            background-repeat: no-repeat;
+            position: relative;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .hidden-element { display: none !important; }
         
-        .mobile-fixed-btn {
-            position: fixed;
-            bottom: 10px; 
-            left: 50%;
-            transform: translateX(-50%);
-            width: 94%; 
-            z-index: 50;
-            box-shadow: 0 5px 20px rgba(225, 48, 48, 0.5); 
-        }
-
-        .play-button-wrapper {
+        .hero-overlay {
+            background: linear-gradient(
+                to bottom, 
+                rgba(11, 13, 18, 0.3) 0%,   
+                rgba(11, 13, 18, 0.7) 60%,  
+                #0b0d12 100%                
+            );
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
-            pointer-events: none;
-        }
-        
-        .play-btn-pulse {
-            animation: pulse-red 2s infinite;
-        }
-        
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(225, 48, 48, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(225, 48, 48, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(225, 48, 48, 0); }
+            inset: 0;
+            z-index: 1;
         }
 
-        /* Стилі інпутів */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Картки */
+        .custom-card {
+            background: linear-gradient(145deg, #13161c 0%, #0f1116 100%);
+            border: 1px solid #2d323e;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .custom-card:hover {
+            border-color: #E13030;
+            transform: translateY(-5px);
+        }
+
+        /* Акцентні блоки */
+        .value-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid #E13030;
+        }
+
+        .price-badge {
+            background: rgba(225, 48, 48, 0.9);
+            border: 1px solid #E13030;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(225, 48, 48, 0.4);
+        }
+
+        .price-glow { text-shadow: 0 0 20px rgba(225, 48, 48, 0.8); }
+
+        /* Таймер */
+        .timer-box {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px dashed #E13030;
+            backdrop-filter: blur(5px);
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0% { border-color: #E13030; }
+            50% { border-color: #ff6b6b; box-shadow: 0 0 15px rgba(225, 48, 48, 0.3); }
+            100% { border-color: #E13030; }
+        }
+
+        /* Інпути */
         .custom-input {
             background-color: #1a1d26;
             border: 1px solid #2d323e;
@@ -88,52 +113,65 @@
             outline: none;
         }
 
-        /* --- АДАПТАЦІЯ БІБЛІОТЕКИ ТЕЛЕФОНІВ ПІД ТЕМНИЙ СТИЛЬ --- */
-        .iti { width: 100%; }
-        .iti__country-list {
-            background-color: #1a1d26;
-            border: 1px solid #2d323e;
+        /* Відгуки (Скрол) */
+        .reviews-scroll {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .reviews-scroll::-webkit-scrollbar { height: 6px; }
+        .reviews-scroll::-webkit-scrollbar-track { background: #13161c; }
+        .reviews-scroll::-webkit-scrollbar-thumb { background: #E13030; border-radius: 10px; }
+        .review-item { flex: 0 0 85%; scroll-snap-align: center; }
+        @media (min-width: 768px) { .review-item { flex: 0 0 40%; } }
+
+        /* Кнопки */
+        .cta-btn {
+            background-color: #E13030;
             color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(225, 48, 48, 0.3);
+            width: 100%;
         }
-        /* Колір обраної країни в списку */
-        .iti__country.iti__highlight {
-            background-color: #E13030; 
+        .cta-btn:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(225, 48, 48, 0.5);
         }
-        /* Стиль самого поля вводу телефону */
+        .mobile-fixed-btn {
+            position: fixed;
+            bottom: 20px; left: 50%; transform: translateX(-50%); width: 94%; z-index: 40;
+            background-color: #E13030; box-shadow: 0 5px 20px rgba(225, 48, 48, 0.5);
+        }
+
+        /* MODAL STYLES */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: linear-gradient(145deg, #13161c 0%, #0b0d12 100%);
+            border: 1px solid #E13030;
+            box-shadow: 0 0 50px rgba(225, 48, 48, 0.2);
+        }
+
+        /* Intl Tel Input Dark Theme */
+        .iti { width: 100%; }
+        .iti__country-list { background-color: #1a1d26; border: 1px solid #2d323e; color: white; }
         .iti__tel-input {
             background-color: #1a1d26 !important;
             border: 1px solid #2d323e !important;
             color: white !important;
-            border-radius: 0.75rem !important; /* rounded-xl */
-            padding-top: 1rem !important;
-            padding-bottom: 1rem !important;
+            border-radius: 0.75rem !important;
+            padding-top: 1rem !important; padding-bottom: 1rem !important;
         }
         .iti__tel-input:focus {
             border-color: #E13030 !important;
-            box-shadow: 0 0 0 4px rgba(225, 48, 48, 0.1) !important;
+            box-shadow: 0 0 0 4px rgba(225, 48, 48, 0.1);
             outline: none !important;
-        }
-
-        .check-list li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 14px;
-            color: #d1d5db;
-        }
-        .check-list li::before {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            top: 4px;
-            color: #E13030;
-            font-size: 1.1em;
-        }
-        
-        .bonus-card {
-            background: linear-gradient(145deg, #13161c 0%, #0f1116 100%);
-            border: 1px solid #2d323e;
         }
     </style>
     
@@ -142,15 +180,8 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            DEFAULT: '#E13030',
-                            hover: '#b91c1c',
-                        },
-                        dark: {
-                            bg: '#0b0d12',
-                            card: '#13161c',
-                            border: '#2d323e'
-                        }
+                        brand: { DEFAULT: '#E13030', hover: '#b91c1c' },
+                        dark: { bg: '#0b0d12', card: '#13161c', border: '#2d323e' }
                     }
                 }
             }
@@ -159,293 +190,10 @@
 </head>
 <body class="min-h-screen flex flex-col items-center overflow-x-hidden relative">
 
-    <!-- Фонове світіння -->
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[100px]"></div>
-    </div>
-
     <!-- ========================================== -->
-    <!-- ЕКРАН 1 -->
+    <!-- HERO SECTION -->
     <!-- ========================================== -->
-    <div id="main-landing-screen" class="relative z-10 w-full flex flex-col items-center transition-opacity duration-500">
+    <header class="w-full hero-section flex flex-col items-center justify-center min-h-[90vh] md:min-h-[850px]">
+        <div class="hero-overlay"></div>
         
-        <main class="w-full max-w-5xl px-4 py-8 md:py-16 flex flex-col items-center">
-            
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-center mb-6 leading-tight fade-in-up uppercase">
-                Як прибрати <span class="text-brand">набряки та<br> зморшки</span> за 10 хвилин
-            </h1>
-
-            <!-- Відео -->
-            <div class="w-full relative group fade-in-up max-w-4xl mb-12" style="animation-delay: 0.2s;">
-                <div class="absolute -inset-1 bg-brand rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
-                
-                <div id="video-container" onclick="loadVideo()" class="relative w-full aspect-video bg-dark-card rounded-xl overflow-hidden shadow-2xl border border-dark-border cursor-pointer group">
-                    <img id="video-thumbnail" src="https://img.youtube.com/vi/dTPuMrYxiCA/maxresdefault.jpg" alt="Video Thumbnail" class="w-full h-full object-cover opacity-90 group-hover:opacity-80 transition-all duration-300">
-                    
-                    <div id="play-btn" class="play-button-wrapper">
-                        <div class="bg-brand text-white w-20 h-20 rounded-full flex items-center justify-center shadow-lg play-btn-pulse transition-transform transform group-hover:scale-110">
-                            <i class="fa-solid fa-play text-3xl ml-1"></i>
-                        </div>
-                    </div>
-                    
-                    <div id="iframe-wrapper" class="w-full h-full absolute inset-0 hidden-element"></div>
-                </div>
-                
-                <p class="mt-4 text-gray-500 text-xs text-center uppercase tracking-widest font-semibold">
-                    <i class="fa-solid fa-volume-high text-brand mr-2"></i> Натисніть для перегляду
-                </p>
-            </div>
-
-            <!-- БОНУСИ -->
-            <div id="cta-section" class="w-full max-w-4xl fade-in-up" style="animation-delay: 0.4s;">
-                
-                <div class="text-center mb-8">
-                    <h2 class="text-2xl md:text-3xl font-bold uppercase text-white mb-2">
-                        Забирай 3 бонуси <br class="md:hidden">після перегляду уроку 🎁
-                    </h2>
-                    <p class="text-gray-400 text-sm md:text-base">
-                        Якщо заповниш анкету <span class="text-brand font-bold">прямо зараз</span>, отримаєш:
-                    </p>
-                </div>
-
-                <!-- Бонус 1 -->
-                <div class="bonus-card rounded-2xl p-6 md:p-8 mb-6 border-l-4 border-brand shadow-[0_10px_30px_rgba(0,0,0,0.3)] relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-5">
-                        <i class="fa-solid fa-comments text-8xl text-white"></i>
-                    </div>
-                    
-                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                        <span class="bg-brand/20 text-brand w-8 h-8 rounded-full flex items-center justify-center text-sm border border-brand/50">1</span>
-                        Безкоштовна консультація
-                    </h3>
-                    <p class="text-gray-400 text-sm mb-6 uppercase tracking-wider font-semibold border-b border-white/10 pb-2 inline-block">
-                        по природньому омолодженню
-                    </p>
-
-                    <ul class="check-list text-base leading-relaxed relative z-10">
-                        <li><strong class="text-white">Розбір вашої ситуації</strong> — аналіз причин набряків, зморшок та змін овалу обличчя.</li>
-                        <li><strong class="text-white">Методика "Антиботокс"</strong> — як за 20 хв/день отримати результат кращий, ніж після уколів.</li>
-                        <li><strong class="text-white">Реальні кейси</strong> — покажу результати дівчат зі схожими проблемами.</li>
-                        <li><strong class="text-white">Покроковий план</strong> — як прийти до пружної шкіри вже за 3-4 тижні.</li>
-                    </ul>
-                </div>
-
-                <!-- Бонуси 2 та 3 -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                    <div class="bonus-card rounded-xl p-5 border border-white/5 flex items-start gap-4 hover:border-brand/30 transition-colors">
-                        <div class="bg-white/5 text-brand w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-sun text-lg"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs text-brand font-bold uppercase mb-1">Бонус №2</div>
-                            <h4 class="font-bold text-white text-lg leading-tight mb-1">Урок “Ранкова рутина”</h4>
-                            <p class="text-gray-400 text-xs">3 простих кроки для свіжості обличчя за 5 хвилин.</p>
-                        </div>
-                    </div>
-
-                    <div class="bonus-card rounded-xl p-5 border border-white/5 flex items-start gap-4 hover:border-brand/30 transition-colors">
-                        <div class="bg-white/5 text-brand w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-tag text-lg"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs text-brand font-bold uppercase mb-1">Бонус №3</div>
-                            <h4 class="font-bold text-white text-lg leading-tight mb-1">Найвигідніша ціна</h4>
-                            <p class="text-gray-400 text-xs">Спеціальні умови на курс «Антиботокс» для учасників.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mb-6">
-                    <p class="text-white text-sm md:text-base font-medium animate-pulse flex flex-col items-center gap-2">
-                        Заповнюй і зовсім скоро звʼяжусь з тобою 👇
-                        <i class="fa-solid fa-chevron-down text-brand"></i>
-                    </p>
-                </div>
-
-            </div>
-        </main>
-
-        <!-- Форма -->
-        <section id="form-section" class="w-full bg-dark-card border-t border-dark-border py-12 relative">
-            <div class="max-w-4xl mx-auto px-4">
-                
-                <div class="bg-[#0b0d12] p-6 md:p-10 rounded-2xl border border-dark-border shadow-2xl fade-in-up" style="animation-delay: 0.3s;">
-                    <div class="text-center mb-8">
-                        <h2 class="text-3xl font-bold text-white mb-2 uppercase">Анкета запису</h2>
-                        <div class="h-1 w-20 bg-brand rounded-full mx-auto"></div>
-                    </div>
-
-                    <form id="vsl-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
-                        <div>
-                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Ваше ім'я</label>
-                            <div class="relative">
-                                <i class="fa-regular fa-user absolute left-4 top-4 text-gray-500 z-10"></i>
-                                <input type="text" name="name" required placeholder="Олена" class="custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
-                            </div>
-                        </div>
-
-                        <!-- ОНОВЛЕНИЙ БЛОК ТЕЛЕФОНУ -->
-                        <div>
-                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Телефон</label>
-                            <!-- Важливо: прибрали іконку всередині, бо там буде прапор -->
-                            <input type="tel" id="phone" name="phone" required class="custom-input rounded-xl py-4 focus:outline-none placeholder-gray-600">
-                            <!-- Прихований інпут для повного номера з кодом, який піде на сервер -->
-                            <input type="hidden" name="full_phone" id="full_phone">
-                        </div>
-
-                        <!-- ОНОВЛЕНИЙ БЛОК ТЕЛЕГРАМ -->
-                        <div>
-                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Telegram (@)</label>
-                            <div class="relative">
-                                <i class="fa-brands fa-telegram absolute left-4 top-4 text-gray-500 z-10"></i>
-                                <input type="text" id="telegram-input" name="telegram" required placeholder="@nickname" class="custom-input rounded-xl py-4 pl-12 pr-4 focus:outline-none placeholder-gray-600">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Ваш запит</label>
-                            <textarea name="query" rows="2" placeholder="Хочу прибрати носогубку..." class="w-full custom-input rounded-xl py-3 px-4 focus:outline-none placeholder-gray-600 resize-none"></textarea>
-                        </div>
-
-                        <button type="submit" class="w-full bg-brand hover:bg-brand-hover text-white font-bold py-5 rounded-xl shadow-lg shadow-red-900/20 transform active:scale-95 transition-all duration-200 mt-2 uppercase tracking-wide text-sm flex justify-center items-center gap-2">
-                            <span>Забрати бонуси</span> <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="md:hidden h-20"></div>
-        </section>
-        
-        <button onclick="scrollToForm()" class="md:hidden mobile-fixed-btn bg-brand hover:bg-brand-hover text-white text-lg font-bold py-4 rounded-xl shadow-2xl border-t border-white/10 uppercase tracking-wide flex justify-center items-center">
-            Заповнити анкету <i class="fa-solid fa-pen ml-3"></i>
-        </button>
-    </div>
-
-    <!-- ЕКРАН 2 -->
-    <div id="thank-you-screen" class="hidden-element relative z-20 w-full min-h-screen flex items-center justify-center p-4">
-        <div class="max-w-md w-full bg-dark-card border border-dark-border rounded-3xl p-8 text-center shadow-2xl fade-in">
-            <div class="w-24 h-24 mx-auto mb-6 rounded-full p-1 border-2 border-brand shadow-[0_0_30px_rgba(225,48,48,0.2)]">
-                <img src="image_1.jpg" alt="Svitlana" class="w-full h-full rounded-full object-cover">
-            </div>
-            <div class="mb-8">
-                <i class="fa-solid fa-check text-4xl text-brand mb-4"></i>
-                <h2 class="text-3xl font-bold text-white mb-2 uppercase">Дякуємо!</h2>
-                <p class="text-gray-400">Ваша анкета успішно відправлена.</p>
-            </div>
-            <div class="bg-[#0b0d12] rounded-xl p-6 mb-8 border border-dark-border text-left">
-                <p class="text-brand text-xs font-bold uppercase mb-2">Наступний крок:</p>
-                <p class="text-white text-sm leading-relaxed">
-                    Поки я вивчаю вашу анкету, підпишіться на мій Telegram-канал. Там я ділюся порадами по тейпуванню щодня.
-                </p>
-            </div>
-            <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="block w-full bg-[#229ED9] hover:bg-[#1c8ec4] text-white text-lg font-bold py-4 rounded-xl shadow-lg transform hover:-translate-y-1 transition-all duration-300">
-                <i class="fa-brands fa-telegram mr-2"></i> Перейти в канал
-            </a>
-            <p class="mt-6 text-xs text-gray-500">Скоро зв'яжемось</p>
-        </div>
-    </div>
-
-    <!-- !!! СКРИПТ БІБЛІОТЕКИ ТЕЛЕФОНІВ !!! -->
-    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
-
-    <script>
-        // Запуск відео
-        window.loadVideo = function() {
-            const container = document.getElementById('video-container');
-            const iframeWrapper = document.getElementById('iframe-wrapper');
-            const playBtn = document.getElementById('play-btn');
-            const thumbnail = document.getElementById('video-thumbnail');
-
-            playBtn.style.display = 'none';
-            thumbnail.style.display = 'none';
-            
-            iframeWrapper.innerHTML = `
-                <iframe 
-                    class="w-full h-full"
-                    src="https://www.youtube.com/embed/dTPuMrYxiCA?autoplay=1&rel=0&showinfo=0&modestbranding=1" 
-                    title="YouTube video player" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-                </iframe>
-            `;
-            iframeWrapper.classList.remove('hidden-element');
-            container.onclick = null;
-            container.classList.remove('cursor-pointer');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- 1. ВАЛІДАЦІЯ ТЕЛЕФОНУ (АВТОМАТИЧНА КРАЇНА) ---
-            const input = document.querySelector("#phone");
-            const iti = window.intlTelInput(input, {
-                initialCountry: "auto",
-                geoIpLookup: callback => {
-                    fetch("https://ipapi.co/json")
-                        .then(res => res.json())
-                        .then(data => callback(data.country_code))
-                        .catch(() => callback("ua"));
-                },
-                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-                separateDialCode: true, // Показувати код окремо (+380)
-            });
-
-            // --- 2. ВАЛІДАЦІЯ TELEGRAM (АВТОМАТИЧНИЙ @) ---
-            const telegramInput = document.getElementById('telegram-input');
-            telegramInput.addEventListener('input', function(e) {
-                let value = e.target.value;
-                // Якщо користувач почав писати і перший символ не @, додаємо його
-                if (value.length > 0 && !value.startsWith('@')) {
-                    e.target.value = '@' + value;
-                }
-            });
-            // На випадок, якщо користувач зітре все і піде
-            telegramInput.addEventListener('blur', function(e) {
-                let value = e.target.value;
-                if (value.length > 0 && !value.startsWith('@')) {
-                    e.target.value = '@' + value;
-                }
-            });
-
-            // --- 3. СТАНДАРТНА ЛОГІКА ФОРМИ ---
-            const formSection = document.getElementById('form-section');
-            const landingScreen = document.getElementById('main-landing-screen');
-            const thankYouScreen = document.getElementById('thank-you-screen');
-
-            window.scrollToForm = function() {
-                formSection.scrollIntoView({ behavior: 'smooth' });
-            };
-
-            window.handleFormSubmit = function(e) {
-                e.preventDefault();
-                
-                // Зберігаємо повний номер телефону з кодом країни
-                const fullPhone = iti.getNumber();
-                document.getElementById('full_phone').value = fullPhone;
-
-                // Перевірка валідності номера
-                if (!iti.isValidNumber()) {
-                    alert("Будь ласка, введіть коректний номер телефону");
-                    return;
-                }
-
-                const btn = e.target.querySelector('button[type="submit"]');
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Відправка...';
-                btn.classList.add('opacity-75');
-
-                setTimeout(() => {
-                    landingScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        landingScreen.classList.add('hidden-element');
-                        thankYouScreen.classList.remove('hidden-element');
-                        window.scrollTo(0, 0);
-                    }, 500);
-                }, 1500);
-            };
-        });
-    </script>
-</body>
-</html>
+        <div class="hero-content w-full max-w-4

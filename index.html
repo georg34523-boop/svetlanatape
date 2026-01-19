@@ -288,9 +288,7 @@
                         <!-- ОНОВЛЕНИЙ БЛОК ТЕЛЕФОНУ -->
                         <div>
                             <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Телефон</label>
-                            <!-- Важливо: прибрали іконку всередині, бо там буде прапор -->
                             <input type="tel" id="phone" name="phone" required class="custom-input rounded-xl py-4 focus:outline-none placeholder-gray-600">
-                            <!-- Прихований інпут для повного номера з кодом, який піде на сервер -->
                             <input type="hidden" name="full_phone" id="full_phone">
                         </div>
 
@@ -357,8 +355,20 @@
         const BOT_ID = '690be870f92135eed801eff3';
 
         // ===== ОТРИМУЄМО TELEGRAM ID З URL =====
+        let telegramChatId = null;
+
+        // Спробуємо отримати з параметра ?tg_id=
         const urlParams = new URLSearchParams(window.location.search);
-        const telegramChatId = urlParams.get('tg_id');
+        telegramChatId = urlParams.get('tg_id');
+
+        // Якщо немає — шукаємо в шляху /tg_id=123
+        if (!telegramChatId) {
+            const path = window.location.pathname;
+            const match = path.match(/tg_id=(\d+)/);
+            if (match) {
+                telegramChatId = match[1];
+            }
+        }
 
         // Зберігаємо в localStorage
         if (telegramChatId) {

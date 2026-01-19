@@ -391,8 +391,8 @@
             return data.access_token;
         }
 
-        // ===== ФУНКЦІЯ ОТРИМАННЯ CONTACT_ID ПО CHAT_ID =====
-        async function getContactId(token, chatId) {
+        // ===== ФУНКЦІЯ ОТРИМАННЯ CONTACT_ID ПО TELEGRAM_ID =====
+        async function getContactId(token, tgId) {
             const response = await fetch(`https://api.sendpulse.com/telegram/contacts/getByTag?bot_id=${BOT_ID}&tag=start_done`, {
                 method: 'GET',
                 headers: {
@@ -404,10 +404,11 @@
             const data = await response.json();
             console.log('Список контактів:', data);
             
-            // Шукаємо контакт з потрібним chat_id
+            // Шукаємо контакт з потрібним telegram_id
             if (data.data) {
-                const contact = data.data.find(c => String(c.chat_id) === String(chatId));
+                const contact = data.data.find(c => String(c.telegram_id) === String(tgId));
                 if (contact) {
+                    console.log('Знайдено контакт:', contact);
                     return contact.id;
                 }
             }
@@ -426,7 +427,7 @@
             try {
                 const token = await getSendPulseToken();
                 
-                // Спочатку отримуємо contact_id
+                // Спочатку отримуємо contact_id по telegram_id
                 const contactId = await getContactId(token, chatId);
                 
                 if (!contactId) {

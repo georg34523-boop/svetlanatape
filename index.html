@@ -391,6 +391,29 @@
             return data.access_token;
         }
 
+        // ===== ФУНКЦІЯ ОТРИМАННЯ CONTACT_ID ПО CHAT_ID =====
+        async function getContactId(token, chatId) {
+            const response = await fetch(`https://api.sendpulse.com/telegram/contacts/getByTag?bot_id=${BOT_ID}&tag=start_done`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            console.log('Список контактів:', data);
+            
+            // Шукаємо контакт з потрібним chat_id
+            if (data.data) {
+                const contact = data.data.find(c => String(c.chat_id) === String(chatId));
+                if (contact) {
+                    return contact.id;
+                }
+            }
+            return null;
+        }
+
         // ===== ФУНКЦІЯ ВІДМІТКИ АНКЕТИ В SENDPULSE =====
         async function markAnketaFilled() {
             const chatId = localStorage.getItem('tg_chat_id');
@@ -403,8 +426,18 @@
             try {
                 const token = await getSendPulseToken();
                 
-                // Використовуємо правильний endpoint з chat_id
-                const response = await fetch(`https://api.sendpulse.com/telegram/contacts/setVariable`, {
+                // Спочатку отримуємо contact_id
+                const contactId = await getContactId(token, chatId);
+                
+                if (!contactId) {
+                    console.log('Контакт не знайдено в SendPulse');
+                    return false;
+                }
+                
+                console.log('Знайдено contact_id:', contactId);
+                
+                // Тепер оновлюємо змінну
+                const response = await fetch('https://api.sendpulse.com/telegram/contacts/setVariable', {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Bearer ' + token,
@@ -412,7 +445,7 @@
                     },
                     body: JSON.stringify({
                         bot_id: BOT_ID,
-                        chat_id: chatId,
+                        contact_id: contactId,
                         variable_name: 'anketa_filled',
                         variable_value: 'yes'
                     })

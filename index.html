@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -240,7 +239,7 @@
                         </div>
                         <div>
                             <div class="text-xs text-brand font-bold uppercase mb-1">Бонус №2</div>
-                            <h4 class="font-bold text-white text-lg leading-tight mb-1">Урок “Ранкова рутина”</h4>
+                            <h4 class="font-bold text-white text-lg leading-tight mb-1">Урок "Ранкова рутина"</h4>
                             <p class="text-gray-400 text-xs">3 простих кроки для свіжості обличчя за 5 хвилин.</p>
                         </div>
                     </div>
@@ -352,6 +351,72 @@
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 
     <script>
+        // ===== КОНФІГУРАЦІЯ SENDPULSE =====
+        const SENDPULSE_CLIENT_ID = '4d53ff4cf63cb540d57bd7719ccf8101';
+        const SENDPULSE_CLIENT_SECRET = '25097ed67a5f808df9ebaad67c996bfc';
+        const BOT_ID = '690be870f92135eed801eff3';
+
+        // ===== ОТРИМУЄМО TELEGRAM ID З URL =====
+        const urlParams = new URLSearchParams(window.location.search);
+        const telegramChatId = urlParams.get('tg_id');
+
+        // Зберігаємо в localStorage
+        if (telegramChatId) {
+            localStorage.setItem('tg_chat_id', telegramChatId);
+            console.log('Telegram ID збережено:', telegramChatId);
+        }
+
+        // ===== ФУНКЦІЯ ОТРИМАННЯ ТОКЕНА SENDPULSE =====
+        async function getSendPulseToken() {
+            const response = await fetch('https://api.sendpulse.com/oauth/access_token', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    grant_type: 'client_credentials',
+                    client_id: SENDPULSE_CLIENT_ID,
+                    client_secret: SENDPULSE_CLIENT_SECRET
+                })
+            });
+            const data = await response.json();
+            return data.access_token;
+        }
+
+        // ===== ФУНКЦІЯ ВІДМІТКИ АНКЕТИ В SENDPULSE =====
+        async function markAnketaFilled() {
+            const chatId = localStorage.getItem('tg_chat_id');
+            
+            if (!chatId) {
+                console.log('Telegram ID не знайдено');
+                return false;
+            }
+            
+            try {
+                const token = await getSendPulseToken();
+                
+                const response = await fetch('https://api.sendpulse.com/telegram/contacts/setVariable', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        bot_id: BOT_ID,
+                        contact_id: chatId,
+                        variable_name: 'anketa_filled',
+                        variable_value: 'yes'
+                    })
+                });
+                
+                const result = await response.json();
+                console.log('SendPulse відповідь:', result);
+                return true;
+                
+            } catch (error) {
+                console.error('Помилка SendPulse:', error);
+                return false;
+            }
+        }
+
         // Запуск відео
         window.loadVideo = function() {
             const container = document.getElementById('video-container');
@@ -377,11 +442,14 @@
             container.classList.remove('cursor-pointer');
         }
 
+        // Змінна для бібліотеки телефонів (глобальна)
+        let iti;
+
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- 1. ВАЛІДАЦІЯ ТЕЛЕФОНУ (АВТОМАТИЧНА КРАЇНА) ---
             const input = document.querySelector("#phone");
-            const iti = window.intlTelInput(input, {
+            iti = window.intlTelInput(input, {
                 initialCountry: "auto",
                 geoIpLookup: callback => {
                     fetch("https://ipapi.co/json")
@@ -390,19 +458,17 @@
                         .catch(() => callback("ua"));
                 },
                 utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-                separateDialCode: true, // Показувати код окремо (+380)
+                separateDialCode: true,
             });
 
             // --- 2. ВАЛІДАЦІЯ TELEGRAM (АВТОМАТИЧНИЙ @) ---
             const telegramInput = document.getElementById('telegram-input');
             telegramInput.addEventListener('input', function(e) {
                 let value = e.target.value;
-                // Якщо користувач почав писати і перший символ не @, додаємо його
                 if (value.length > 0 && !value.startsWith('@')) {
                     e.target.value = '@' + value;
                 }
             });
-            // На випадок, якщо користувач зітре все і піде
             telegramInput.addEventListener('blur', function(e) {
                 let value = e.target.value;
                 if (value.length > 0 && !value.startsWith('@')) {
@@ -419,7 +485,7 @@
                 formSection.scrollIntoView({ behavior: 'smooth' });
             };
 
-            window.handleFormSubmit = function(e) {
+            window.handleFormSubmit = async function(e) {
                 e.preventDefault();
                 
                 // Зберігаємо повний номер телефону з кодом країни
@@ -436,6 +502,9 @@
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Відправка...';
                 btn.classList.add('opacity-75');
+
+                // ===== ВІДМІЧАЄМО В SENDPULSE =====
+                await markAnketaFilled();
 
                 setTimeout(() => {
                     landingScreen.style.opacity = '0';

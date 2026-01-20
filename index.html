@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -533,56 +534,74 @@
                 formSection.scrollIntoView({ behavior: 'smooth' });
             };
 
-            window.handleFormSubmit = async function(e) {
+window.handleFormSubmit = function(e) {
                 e.preventDefault();
                 
-                // Зберігаємо повний номер телефону
-                const fullPhone = iti.getNumber();
-                document.getElementById('full_phone').value = fullPhone;
+                // 1. Отримуємо і записуємо повний номер (з кодом країни)
+                // Це критично важливо зробити ДО створення FormData
+                if (iti) {
+                    const fullPhone = iti.getNumber();
+                    document.getElementById('full_phone').value = fullPhone;
 
-                // Валідація
-                if (!iti.isValidNumber()) {
-                    alert("Будь ласка, введіть коректний номер телефону");
-                    return;
+                    // Валідація номеру
+                    if (!iti.isValidNumber()) {
+                        alert("Будь ласка, введіть коректний номер телефону");
+                        return;
+                    }
                 }
 
+                // 2. Блокуємо кнопку, щоб не натиснули двічі
                 const btn = e.target.querySelector('button[type="submit"]');
                 const originalBtnText = btn.innerHTML;
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Відправка...';
                 btn.classList.add('opacity-75');
 
+                // 3. Збираємо всі дані з форми (включаючи приховане поле sheet_name та full_phone)
                 const form = e.target;
                 const formData = new FormData(form);
 
-                // ===== 1. ВІДПРАВКА В GOOGLE SHEETS =====
+                // ===== ВІДПРАВКА В GOOGLE SHEETS =====
                 if (GOOGLE_SCRIPT_URL) {
-                    try {
-                        await fetch(GOOGLE_SCRIPT_URL, {
-                            method: 'POST',
-                            body: formData,
-                            mode: 'no-cors' // Важливо для Google Apps Script
-                        });
-                        console.log("Дані відправлені в Google Sheets");
-                    } catch (err) {
-                        console.error("Помилка Google Sheets:", err);
-                    }
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors' // Обов'язково для Google Apps Script
+                    })
+                    .then(() => {
+                        console.log("Заявка успішно відправлена в Google Sheets");
+                        // Тільки після успішної відправки (або спроби) переходимо до SendPulse та екрану подяки
+                        finalizeSubmission();
+                    })
+                    .catch((err) => {
+                        console.error("Помилка при відправці в Google:", err);
+                        // Навіть якщо помилка (наприклад, блокувальник реклами), все одно пробуємо завершити
+                        finalizeSubmission();
+                    });
                 } else {
-                    console.warn("GOOGLE_SCRIPT_URL не задано!");
+                    console.warn("GOOGLE_SCRIPT_URL не встановлено!");
+                    finalizeSubmission();
                 }
 
-                // ===== 2. ВІДМІТКА В SENDPULSE =====
-                await markAnketaFilled();
+                // Допоміжна функція завершення
+                async function finalizeSubmission() {
+                    // Спроба відправити в SendPulse (фоново, не блокує перехід)
+                    try {
+                        await markAnketaFilled();
+                    } catch (e) {
+                        console.log("SendPulse skipped");
+                    }
 
-                // Перехід на Thank You Page
-                setTimeout(() => {
-                    landingScreen.style.opacity = '0';
+                    // Перехід на екран подяки
                     setTimeout(() => {
-                        landingScreen.classList.add('hidden-element');
-                        thankYouScreen.classList.remove('hidden-element');
-                        window.scrollTo(0, 0);
+                        landingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            landingScreen.classList.add('hidden-element');
+                            thankYouScreen.classList.remove('hidden-element');
+                            window.scrollTo(0, 0);
+                        }, 500);
                     }, 500);
-                }, 1000);
+                }
             };
         });
     </script>

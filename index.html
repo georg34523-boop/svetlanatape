@@ -277,6 +277,10 @@
                     </div>
 
                     <form id="vsl-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        
+                        <!-- !!! ОСНОВНА ЗМІНА: ПЕРЕДАЄМО НАЗВУ ЛИСТА !!! -->
+                        <input type="hidden" name="sheet_name" value="2 Ленд VSL видео">
+
                         <div>
                             <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Ваше ім'я</label>
                             <div class="relative">
@@ -354,7 +358,7 @@
         // НАЛАШТУВАННЯ GOOGLE SHEETS
         // ==========================================
         // Вставте сюди своє посилання Web App URL від Google Apps Script:
-        const GOOGLE_SCRIPT_URL = ""; 
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzl6zYrNpRIMyQSWTAPK2YLOGwncB1qDxIpXq2hUpkBU4LllSZjQRaC3OXH5wXXdOsRsQ/exec"; 
 
         // ===== КОНФІГУРАЦІЯ SENDPULSE =====
         const SENDPULSE_CLIENT_ID = '4d53ff4cf63cb540d57bd7719ccf8101';

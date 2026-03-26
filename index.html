@@ -279,7 +279,7 @@
                     <form id="vsl-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
                         
                         <!-- Назва листа для Google Sheets -->
-                        <input type="hidden" name="sheet_name" value="VSL">
+                        <input type="hidden" name="sheet_name" value="VSL сайт">
 
                         <div>
                             <label class="block text-gray-500 text-xs font-bold uppercase tracking-wider mb-2 ml-1">Ваше ім'я</label>
@@ -356,7 +356,7 @@
         // ==========================================
         // НАЛАШТУВАННЯ GOOGLE SHEETS
         // ==========================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/library/d/102ZatavNrli8cbd6DzyNAA_lQMbQi6-zwpprqI_iOgo0qO38oc-dJs72/5"; 
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcLnpNZsLJTrg6SW-N-FFWcBYCxg_aabkxhnlUy1KpIvy9jK_nHzM3LWgRzn9LwYfbvA/exec"; 
 
         // ===== КОНФІГУРАЦІЯ SENDPULSE =====
         const SENDPULSE_CLIENT_ID = '4d53ff4cf63cb540d57bd7719ccf8101';
@@ -556,11 +556,20 @@
                 const form = e.target;
                 const formData = new FormData(form);
 
+                // Конвертуємо FormData → URLSearchParams (надійніше для Google Apps Script)
+                const urlParams = new URLSearchParams();
+                for (const [key, value] of formData.entries()) {
+                    urlParams.append(key, value);
+                }
+
                 // ===== ВІДПРАВКА В GOOGLE SHEETS =====
                 if (GOOGLE_SCRIPT_URL) {
                     fetch(GOOGLE_SCRIPT_URL, {
                         method: 'POST',
-                        body: formData,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: urlParams.toString(),
                         mode: 'no-cors'
                     })
                     .then(() => {
